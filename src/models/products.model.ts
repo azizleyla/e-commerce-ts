@@ -5,3 +5,11 @@ export interface Product1 {
   desc: string;
   image: string;
 }
+
+export interface OneProduct {
+  id: number;
+  title: string;
+  price: number;
+  desc: string;
+  image: string;
+}

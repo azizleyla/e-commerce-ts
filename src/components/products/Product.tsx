@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import product1 from "../../images/product1.jpg";
 import { AddButton } from "../common/Button";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { Product1 } from "../../models/products.model";

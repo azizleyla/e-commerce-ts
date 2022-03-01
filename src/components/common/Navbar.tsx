@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosHeartEmpty } from "react-icons/io";
-import { IoMdMenu } from "react-icons/io";
 import { RiMenu2Line } from "react-icons/ri";
 
 import logo from "../../assets/logo.svg";
 import { navbarLinks } from "../../constant";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
@@ -16,7 +16,9 @@ export const Navbar = () => {
         <img src={logo} alt="" />
         <NavbarItems>
           {navbarLinks.map((link) => (
-            <li key={link.id}>{link.label}</li>
+            <NavLink to={link.path}>
+              <li key={link.id}>{link.label}</li>
+            </NavLink>
           ))}
         </NavbarItems>
         <NavbarIcons>
@@ -77,11 +79,8 @@ const NavbarContentContainer = styled.div`
   }
 `;
 
-const NavbarItems = styled.ul`
-  display: flex;
-  gap: 30px;
-  list-style: none;
-
+const NavLink = styled(Link)`
+  text-decoration: none;
   li {
     font-style: normal;
     font-weight: normal;
@@ -99,6 +98,12 @@ const NavbarItems = styled.ul`
       display: none;
     }
   }
+`;
+
+const NavbarItems = styled.ul`
+  display: flex;
+  gap: 30px;
+  list-style: none;
 `;
 
 const NavbarIcons = styled.div`
