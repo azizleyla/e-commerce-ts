@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosHeartEmpty } from "react-icons/io";
@@ -10,14 +10,44 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
+  const [navbar, setNavbar] = useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+
+  const changeBackground = () => {
+    if (window.scrollY >= 20) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 200) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+  let navbarClasses = ["navbar"];
+  if (scrolled) {
+    navbarClasses.push("scrolled");
+  }
+
+  window.addEventListener("scroll", changeBackground);
+
   return (
-    <NavbarStyled>
+    <NavbarStyled className={navbar ? "active" : ""}>
       <NavbarContentContainer>
         <img src={logo} alt="" />
         <NavbarItems>
           {navbarLinks.map((link) => (
-            <NavLink to={link.path}>
-              <li key={link.id}>{link.label}</li>
+            <NavLink key={link.id} to={link.path}>
+              <li>{link.label}</li>
             </NavLink>
           ))}
         </NavbarItems>
@@ -59,8 +89,10 @@ export const Navbar = () => {
 };
 
 const NavbarStyled = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 20px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   @media (max-width: 1230px) {
     padding: 0 1.4rem;
@@ -68,11 +100,12 @@ const NavbarStyled = styled.div`
 `;
 
 const NavbarContentContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-top: 20px;
 
   img {
     width: 202px;

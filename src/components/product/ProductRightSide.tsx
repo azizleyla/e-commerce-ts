@@ -80,7 +80,7 @@ const ToCart = styled.button`
   letter-spacing: 1px;
   text-transform: uppercase;
   color: #ffffff;
-  background: #d87d4a;
+  background: rgb(231, 129, 107);
 
   padding: 10px 20px;
   margin-top: 40px;
