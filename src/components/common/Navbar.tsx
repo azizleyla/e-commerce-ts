@@ -7,52 +7,58 @@ import { RiMenu2Line } from "react-icons/ri";
 
 import logo from "../../assets/logo.svg";
 import { navbarLinks } from "../../constant";
+import SidebarCart from "../cart/SidebarCart";
 
 export const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
+  const [isShow, setIsShow] = useState(false);
+
   return (
-    <NavbarStyled>
-      <NavbarContentContainer>
-        <img src={logo} alt="" />
-        <NavbarItems>
-          {navbarLinks.map((link) => (
-            <li key={link.id}>{link.label}</li>
-          ))}
-        </NavbarItems>
-        <NavbarIcons>
-          <button>
-            <AiOutlineShoppingCart size="20px" />
-          </button>
-          <button>
-            <IoIosHeartEmpty size="20px" />
-          </button>
-        </NavbarIcons>
-        <Hamburger
-          onClick={() => {
-            setShowLinks(!showLinks);
-          }}
-        >
-          <RiMenu2Line size="25px" />
-        </Hamburger>
-      </NavbarContentContainer>
-      {showLinks && (
-        <ShowContainer>
-          <ShowContainerItems>
+    <>
+      <NavbarStyled>
+        <NavbarContentContainer>
+          <img src={logo} alt="" />
+          <NavbarItems>
             {navbarLinks.map((link) => (
               <li key={link.id}>{link.label}</li>
             ))}
-          </ShowContainerItems>
-          <ShowContainerIcons>
-            <button>
-              <AiOutlineShoppingCart size="25px" />
+          </NavbarItems>
+          <NavbarIcons>
+            <button onClick={() => setIsShow(true)}>
+              <AiOutlineShoppingCart size="20px" />
             </button>
             <button>
-              <IoIosHeartEmpty size="25px" />
+              <IoIosHeartEmpty size="20px" />
             </button>
-          </ShowContainerIcons>
-        </ShowContainer>
-      )}
-    </NavbarStyled>
+          </NavbarIcons>
+          <Hamburger
+            onClick={() => {
+              setShowLinks(!showLinks);
+            }}
+          >
+            <RiMenu2Line size="25px" />
+          </Hamburger>
+        </NavbarContentContainer>
+        {showLinks && (
+          <ShowContainer>
+            <ShowContainerItems>
+              {navbarLinks.map((link) => (
+                <li key={link.id}>{link.label}</li>
+              ))}
+            </ShowContainerItems>
+            <ShowContainerIcons>
+              <button>
+                <AiOutlineShoppingCart size="25px" />
+              </button>
+              <button>
+                <IoIosHeartEmpty size="25px" />
+              </button>
+            </ShowContainerIcons>
+          </ShowContainer>
+        )}
+      </NavbarStyled>
+      <SidebarCart isShow={isShow} setIsShow={setIsShow} />
+    </>
   );
 };
 
