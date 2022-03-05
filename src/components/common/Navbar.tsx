@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { IoIosHeartEmpty } from "react-icons/io";
-import { IoMdMenu } from "react-icons/io";
 import { RiMenu2Line } from "react-icons/ri";
 
 import logo from "../../assets/logo.svg";
 import { navbarLinks } from "../../constant";
+<<<<<<< HEAD
 import SidebarCart from "../cart/SidebarCart";
 
 export const Navbar = () => {
@@ -19,6 +19,72 @@ export const Navbar = () => {
         <NavbarContentContainer>
           <img src={logo} alt="" />
           <NavbarItems>
+=======
+import { Link } from "react-router-dom";
+
+export const Navbar = () => {
+  const [showLinks, setShowLinks] = useState(false);
+  const [navbar, setNavbar] = useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+
+  const changeBackground = () => {
+    if (window.scrollY >= 20) {
+      setNavbar(true);
+    } else {
+      setNavbar(false);
+    }
+  };
+
+  const handleScroll = () => {
+    const offset = window.scrollY;
+    if (offset > 200) {
+      setScrolled(true);
+    } else {
+      setScrolled(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  });
+  let navbarClasses = ["navbar"];
+  if (scrolled) {
+    navbarClasses.push("scrolled");
+  }
+
+  window.addEventListener("scroll", changeBackground);
+
+  return (
+    <NavbarStyled className={navbar ? "active" : ""}>
+      <NavbarContentContainer>
+        <img src={logo} alt="" />
+        <NavbarItems>
+          {navbarLinks.map((link) => (
+            <NavLink key={link.id} to={link.path}>
+              <li>{link.label}</li>
+            </NavLink>
+          ))}
+        </NavbarItems>
+        <NavbarIcons>
+          <button>
+            <AiOutlineShoppingCart size="20px" />
+          </button>
+          <button>
+            <IoIosHeartEmpty size="20px" />
+          </button>
+        </NavbarIcons>
+        <Hamburger
+          onClick={() => {
+            setShowLinks(!showLinks);
+          }}
+        >
+          <RiMenu2Line size="25px" />
+        </Hamburger>
+      </NavbarContentContainer>
+      {showLinks && (
+        <ShowContainer>
+          <ShowContainerItems>
+>>>>>>> fa3640a87fcee8f47e3149c309c4fe39413df8fd
             {navbarLinks.map((link) => (
               <li key={link.id}>{link.label}</li>
             ))}
@@ -63,8 +129,10 @@ export const Navbar = () => {
 };
 
 const NavbarStyled = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 20px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 
   @media (max-width: 1230px) {
     padding: 0 1.4rem;
@@ -72,22 +140,20 @@ const NavbarStyled = styled.div`
 `;
 
 const NavbarContentContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  margin-top: 20px;
 
   img {
     width: 202px;
   }
 `;
 
-const NavbarItems = styled.ul`
-  display: flex;
-  gap: 30px;
-  list-style: none;
-
+const NavLink = styled(Link)`
+  text-decoration: none;
   li {
     font-style: normal;
     font-weight: normal;
@@ -105,6 +171,12 @@ const NavbarItems = styled.ul`
       display: none;
     }
   }
+`;
+
+const NavbarItems = styled.ul`
+  display: flex;
+  gap: 30px;
+  list-style: none;
 `;
 
 const NavbarIcons = styled.div`

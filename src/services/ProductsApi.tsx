@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { useParams } from "react-router-dom";
 import { Product1 } from "../models/products.model";
 
 export const productsApi = createApi({
