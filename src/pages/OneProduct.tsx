@@ -1,16 +1,31 @@
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../components/common/Layout";
 import OneProductLeftSide from "../components/product/OneProductLeftSide";
 import OneProductRightSide from "../components/product/ProductRightSide";
 import { Container } from "../components/ui/style";
+import { useGetProductsQuery } from "../services/ProductsApi";
+
+type ProductId = {
+  productId: string;
+};
 
 const OneProduct = () => {
+  const { productId } = useParams<ProductId>();
+
+  console.log(productId);
+  const { data: products, isLoading } = useGetProductsQuery();
+
+  const selectedProduct = products?.find(
+    (product) => product.id === Number(productId),
+  );
+
   return (
     <Layout>
       <Container>
         <OneProductStyled>
-          <OneProductLeftSide />
-          <OneProductRightSide />
+          <OneProductLeftSide selectedProduct={selectedProduct} />
+          <OneProductRightSide selectedProduct={selectedProduct} />
         </OneProductStyled>
       </Container>
     </Layout>
@@ -33,5 +48,4 @@ const OneProductStyled = styled.div`
     flex-direction: column;
     align-items: center;
   }
- 
 `;

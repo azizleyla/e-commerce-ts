@@ -89,7 +89,7 @@ const SidebarCart = ({ setIsShow, isShow }) => {
 };
 const SidebarCartContainer = styled.div`
   background-color: #fff;
-  width: 300px;
+  width: 350px;
   max-width: calc(100% - 30px);
   height: 100vh;
   position: fixed;

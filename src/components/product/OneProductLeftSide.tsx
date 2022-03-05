@@ -1,11 +1,16 @@
 import styled from "styled-components";
 
 import product from "../../images/product1.jpg";
+import { Product1 } from "../../models/products.model";
 
-const OneProductLeftSide = () => {
+import React from "react";
+
+const OneProductLeftSide: React.FC<{ selectedProduct: Product1 }> = ({
+  selectedProduct,
+}) => {
   return (
     <LeftSideContainer>
-      <img src={product} alt="product-img" />
+      <img src={selectedProduct.image} />
     </LeftSideContainer>
   );
 };

@@ -1,15 +1,17 @@
 import styled from "styled-components";
+import { Product1 } from "../../models/products.model";
 
-const OneProductRightSide = () => {
+const OneProductRightSide: React.FC<{
+  selectedProduct: Product1;
+}> = ({ selectedProduct }) => {
+  console.log(selectedProduct);
   return (
     <RightSideContainer>
-      <h1>Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops.</h1>
-      <p>
-        Your perfect pack for everyday use and walks in the forest. Stash
-        your laptop (up to 15 inches) in the padded sleeve, your everyday
-      </p>
+      <h1>{selectedProduct.title}</h1>
+      <p>{selectedProduct.description}</p>
       <h3>
-        <span>$</span>109.95
+        <span>$</span>
+        {selectedProduct.price}
       </h3>
       <ButtonContainer>
         <ToCart>Add To Cart</ToCart>

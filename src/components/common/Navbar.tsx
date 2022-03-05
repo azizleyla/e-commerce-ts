@@ -6,27 +6,14 @@ import { RiMenu2Line } from "react-icons/ri";
 
 import logo from "../../assets/logo.svg";
 import { navbarLinks } from "../../constant";
-<<<<<<< HEAD
-import SidebarCart from "../cart/SidebarCart";
-
-export const Navbar = () => {
-  const [showLinks, setShowLinks] = useState(false);
-  const [isShow, setIsShow] = useState(false);
-
-  return (
-    <>
-      <NavbarStyled>
-        <NavbarContentContainer>
-          <img src={logo} alt="" />
-          <NavbarItems>
-=======
 import { Link } from "react-router-dom";
+import SidebarCart from "../cart/SidebarCart";
 
 export const Navbar = () => {
   const [showLinks, setShowLinks] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const [scrolled, setScrolled] = React.useState(false);
-
+  const [isShow, setIsShow] = useState(false);
   const changeBackground = () => {
     if (window.scrollY >= 20) {
       setNavbar(true);
@@ -55,38 +42,15 @@ export const Navbar = () => {
   window.addEventListener("scroll", changeBackground);
 
   return (
-    <NavbarStyled className={navbar ? "active" : ""}>
-      <NavbarContentContainer>
-        <img src={logo} alt="" />
-        <NavbarItems>
-          {navbarLinks.map((link) => (
-            <NavLink key={link.id} to={link.path}>
-              <li>{link.label}</li>
-            </NavLink>
-          ))}
-        </NavbarItems>
-        <NavbarIcons>
-          <button>
-            <AiOutlineShoppingCart size="20px" />
-          </button>
-          <button>
-            <IoIosHeartEmpty size="20px" />
-          </button>
-        </NavbarIcons>
-        <Hamburger
-          onClick={() => {
-            setShowLinks(!showLinks);
-          }}
-        >
-          <RiMenu2Line size="25px" />
-        </Hamburger>
-      </NavbarContentContainer>
-      {showLinks && (
-        <ShowContainer>
-          <ShowContainerItems>
->>>>>>> fa3640a87fcee8f47e3149c309c4fe39413df8fd
+    <>
+      <NavbarStyled className={navbar ? "active" : ""}>
+        <NavbarContentContainer>
+          <img src={logo} alt="" />
+          <NavbarItems>
             {navbarLinks.map((link) => (
-              <li key={link.id}>{link.label}</li>
+              <NavLink key={link.id} to={link.path}>
+                <li>{link.label}</li>
+              </NavLink>
             ))}
           </NavbarItems>
           <NavbarIcons>
@@ -105,6 +69,7 @@ export const Navbar = () => {
             <RiMenu2Line size="25px" />
           </Hamburger>
         </NavbarContentContainer>
+
         {showLinks && (
           <ShowContainer>
             <ShowContainerItems>

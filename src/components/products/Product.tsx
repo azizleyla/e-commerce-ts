@@ -3,25 +3,28 @@ import styled from "styled-components";
 import { AddButton } from "../common/Button";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { Product1 } from "../../models/products.model";
+import { Link } from "react-router-dom";
 
 const Product: React.FC<{
   product: Product1;
 }> = ({ product }) => {
   return (
-    <SingleProduct>
-      <div className="like-icon-container">
-        <IoIosHeartEmpty />
-      </div>
+    <Link to={`product/${product.id}`}>
+      <SingleProduct>
+        <div className="like-icon-container">
+          <IoIosHeartEmpty />
+        </div>
 
-      <div className="img-container">
-        <img src={product.image} alt="" />
-      </div>
-      <div className="product-details">
-        <h4>{product.title}</h4>
-        <p>{product.desc}</p>
-        <AddButton>Add to cart</AddButton>
-      </div>
-    </SingleProduct>
+        <div className="img-container">
+          <img src={product.image} alt="" />
+        </div>
+        <div className="product-details">
+          <h4>{product.title}</h4>
+          {/* <p>{product.description}</p> */}
+          <AddButton>Add to cart</AddButton>
+        </div>
+      </SingleProduct>
+    </Link>
   );
 };
 const SingleProduct = styled.div`
