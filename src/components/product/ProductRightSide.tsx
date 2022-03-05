@@ -3,15 +3,14 @@ import { Product1 } from "../../models/products.model";
 
 const OneProductRightSide: React.FC<{
   selectedProduct: Product1;
-}> = ({ selectedProduct }) => {
-  console.log(selectedProduct);
+}> = ({ selectedProduct: { title, description, price } }) => {
   return (
     <RightSideContainer>
-      <h1>{selectedProduct.title}</h1>
-      <p>{selectedProduct.description}</p>
+      <h1>{title}</h1>
+      <p>{description}</p>
       <h3>
         <span>$</span>
-        {selectedProduct.price}
+        {price}
       </h3>
       <ButtonContainer>
         <ToCart>Add To Cart</ToCart>

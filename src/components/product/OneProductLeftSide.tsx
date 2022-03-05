@@ -6,11 +6,11 @@ import { Product1 } from "../../models/products.model";
 import React from "react";
 
 const OneProductLeftSide: React.FC<{ selectedProduct: Product1 }> = ({
-  selectedProduct,
+  selectedProduct: { image },
 }) => {
   return (
     <LeftSideContainer>
-      <img src={selectedProduct.image} />
+      <img src={image} />
     </LeftSideContainer>
   );
 };

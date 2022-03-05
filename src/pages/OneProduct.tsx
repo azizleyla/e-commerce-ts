@@ -24,8 +24,12 @@ const OneProduct = () => {
     <Layout>
       <Container>
         <OneProductStyled>
-          <OneProductLeftSide selectedProduct={selectedProduct} />
-          <OneProductRightSide selectedProduct={selectedProduct} />
+          {selectedProduct && (
+            <>
+              <OneProductLeftSide selectedProduct={selectedProduct} />
+              <OneProductRightSide selectedProduct={selectedProduct} />
+            </>
+          )}
         </OneProductStyled>
       </Container>
     </Layout>
