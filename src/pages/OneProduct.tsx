@@ -13,8 +13,7 @@ type ProductId = {
 const OneProduct = () => {
   const { productId } = useParams<ProductId>();
 
-  console.log(productId);
-  const { data: products, isLoading } = useGetProductsQuery();
+  const { data: products } = useGetProductsQuery();
 
   const selectedProduct = products?.find(
     (product) => product.id === Number(productId),

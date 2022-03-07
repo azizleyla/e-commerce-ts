@@ -1,90 +1,109 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { SidebarCartBtn } from "../common/Button";
 import { RiCloseLine } from "react-icons/ri";
 import { FaTrashAlt } from "react-icons/fa";
 const SidebarCart = ({ setIsShow, isShow }) => {
+  const ref = useRef();
+  useEffect(() => {
+    const checkIfClickedOutside = (e) => {
+      // If the menu is open and the clicked target is not within the menu,
+      // then close the menu
+      if (isShow && ref.current && !ref.current.contains(e.target)) {
+        setIsShow(false);
+      }
+    };
+
+    document.addEventListener("mousedown", checkIfClickedOutside);
+
+    return () => {
+      // Cleanup the event listener
+      document.removeEventListener("mousedown", checkIfClickedOutside);
+    };
+  }, [isShow]);
   return (
-    <SidebarCartContainer className={isShow ? "active" : ""}>
-      <div className="cart-header">
-        <span>Your Cart(2)</span>
-        <button
-          className="cart-close-btn"
-          onClick={() => setIsShow(false)}
-        >
-          <RiCloseLine />
-        </button>
-      </div>
+    <>
+      <SidebarCartContainer ref={ref} className={isShow ? "active" : ""}>
+        <div className="cart-header">
+          <span>Your Cart(2)</span>
+          <button
+            className="cart-close-btn"
+            onClick={() => setIsShow(false)}
+          >
+            <RiCloseLine />
+          </button>
+        </div>
 
-      <p className="empty-cart"></p>
+        <p className="empty-cart"></p>
 
-      <div className="cart-item">
-        <div className="cart-body">
-          <>
-            <div className="product-img">
-              <img
-                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                alt="cart"
-              />
-            </div>
-            <div className="product-detail">
-              <span className="product-title trans-04">
-                Mens Casual Premium Slim Fit T-Shirts
-              </span>
-              <p className="details">
-                <span className="quantity">Quantity: 1</span>
-              </p>
-              <p className="price-info">
-                Price:
-                <span className="price"> 150</span>
-              </p>
-            </div>
-            <button className="delete-btn">
-              <FaTrashAlt className="delete-icon" />
-            </button>
-          </>
+        <div className="cart-item">
+          <div className="cart-body">
+            <>
+              <div className="product-img">
+                <img
+                  src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                  alt="cart"
+                />
+              </div>
+              <div className="product-detail">
+                <span className="product-title trans-04">
+                  Mens Casual Premium Slim Fit T-Shirts
+                </span>
+                <p className="details">
+                  <span className="quantity">Quantity: 1</span>
+                </p>
+                <p className="price-info">
+                  Price:
+                  <span className="price"> 150</span>
+                </p>
+              </div>
+              <button className="delete-btn">
+                <FaTrashAlt className="delete-icon" />
+              </button>
+            </>
+          </div>
         </div>
-      </div>
-      <div className="cart-item">
-        <div className="cart-body">
-          <>
-            <div className="product-img">
-              <img
-                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                alt="cart"
-              />
-            </div>
-            <div className="product-detail">
-              <span className="product-title trans-04">
-                Mens Casual Premium Slim Fit T-Shirts
-              </span>
-              <p className="details">
-                <span className="quantity">Quantity: 1</span>
-              </p>
-              <p className="price-info">
-                Price:
-                <span className="price"> 150</span>
-              </p>
-            </div>
-            <button className="delete-btn">
-              <FaTrashAlt className="delete-icon" />
-            </button>
-          </>
+        <div className="cart-item">
+          <div className="cart-body">
+            <>
+              <div className="product-img">
+                <img
+                  src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+                  alt="cart"
+                />
+              </div>
+              <div className="product-detail">
+                <span className="product-title trans-04">
+                  Mens Casual Premium Slim Fit T-Shirts
+                </span>
+                <p className="details">
+                  <span className="quantity">Quantity: 1</span>
+                </p>
+                <p className="price-info">
+                  Price:
+                  <span className="price"> 150</span>
+                </p>
+              </div>
+              <button className="delete-btn">
+                <FaTrashAlt className="delete-icon" />
+              </button>
+            </>
+          </div>
         </div>
-      </div>
-      <div className="cart-footer">
-        <p className="total"></p>
-        <div className="cart-btns">
-          <Link to="/cart">
-            <SidebarCartBtn>Go To Cart</SidebarCartBtn>
-          </Link>
-          <Link to="/cart">
-            <SidebarCartBtn title="checkout">Checkout</SidebarCartBtn>
-          </Link>
+        <div className="cart-footer">
+          <p className="total"></p>
+          <div className="cart-btns">
+            <Link to="/cart">
+              <SidebarCartBtn>Go To Cart</SidebarCartBtn>
+            </Link>
+            <Link to="/cart">
+              <SidebarCartBtn title="checkout">Checkout</SidebarCartBtn>
+            </Link>
+          </div>
         </div>
-      </div>
-    </SidebarCartContainer>
+      </SidebarCartContainer>
+    </>
   );
 };
 const SidebarCartContainer = styled.div`
@@ -105,6 +124,7 @@ const SidebarCartContainer = styled.div`
   &.active {
     right: 0;
   }
+
   .cart-header {
     display: flex;
     align-items: center;
