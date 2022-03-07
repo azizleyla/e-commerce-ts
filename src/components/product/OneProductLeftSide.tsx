@@ -22,7 +22,7 @@ const LeftSideContainer = styled.div`
   display: flex;
 
   img {
-    width: 450px;
+    width: 300px;
   }
 
   @media (max-width: 1050px) {
@@ -30,7 +30,7 @@ const LeftSideContainer = styled.div`
   }
   @media (max-width: 950px) {
     img {
-      width: 350px;
+      width: 250px;
     }
   }
   @media (max-width: 840px) {
@@ -38,7 +38,7 @@ const LeftSideContainer = styled.div`
   }
   @media (max-width: 500px) {
     img {
-      width: 250px;
+      width: 150px;
     }
   }
 `;
