@@ -100,7 +100,7 @@ const NavbarStyled = styled.div`
   z-index: 1;
 
   @media (max-width: 1230px) {
-    padding: 0 1.4rem;
+    padding: 20px 1.4rem;
   }
 `;
 
