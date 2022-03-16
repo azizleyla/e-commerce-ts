@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Layout from "../components/common/Layout";
 import OneProductLeftSide from "../components/product/OneProductLeftSide";
 import OneProductRightSide from "../components/product/ProductRightSide";
+import ScroolToTop from "../components/ui/ScroolToTop";
 import { Container } from "../components/ui/style";
 import { useGetProductsQuery } from "../services/ProductsApi";
 
@@ -21,6 +22,7 @@ const OneProduct = () => {
 
   return (
     <Layout>
+      <ScroolToTop />
       <Container>
         <OneProductStyled>
           {selectedProduct && (
