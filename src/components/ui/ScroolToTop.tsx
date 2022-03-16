@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const ScroolToTop = () => {
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({ behavior: "smooth", top: 0 });
   }, []);
   return <></>;
 };

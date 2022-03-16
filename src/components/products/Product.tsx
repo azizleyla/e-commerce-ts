@@ -4,12 +4,23 @@ import { AddButton } from "../common/Button";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { Product1 } from "../../models/products.model";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  addToCart,
+  CartItemType,
+} from "../../redux/features/products/ProductSlice";
 
 const Product: React.FC<{
   product: Product1;
 }> = ({ product }) => {
+  const dispatch = useDispatch();
+
+  const handleClick = (title: CartItemType) => {
+    dispatch(addToCart(title));
+  };
+
   return (
-    <Link to={`product/${product.id}`}>
+    <StyledLink to={`product/${product.id}`}>
       <SingleProduct>
         <div className="like-icon-container">
           <IoIosHeartEmpty />
@@ -21,12 +32,19 @@ const Product: React.FC<{
         <div className="product-details">
           <h4>{product.title}</h4>
           {/* <p>{product.description}</p> */}
-          <AddButton>Add to cart</AddButton>
+          <AddButton onClick={() => handleClick(product.title)}>
+            Add to cart
+          </AddButton>
         </div>
       </SingleProduct>
-    </Link>
+    </StyledLink>
   );
 };
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: #333;
+`;
 const SingleProduct = styled.div`
   background: #fff;
   border: 1px solid #ccc;
