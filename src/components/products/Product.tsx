@@ -5,18 +5,15 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { Product1 } from "../../models/products.model";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-  addToCart,
-  CartItemType,
-} from "../../redux/features/products/ProductSlice";
+import { addToCart } from "../../redux/features/products/ProductSlice";
 
 const Product: React.FC<{
   product: Product1;
 }> = ({ product }) => {
   const dispatch = useDispatch();
-
-  const handleClick = (title: CartItemType) => {
-    dispatch(addToCart(title));
+  console.log(product);
+  const handleClick = (product: Product1) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -31,10 +28,13 @@ const Product: React.FC<{
         </div>
         <div className="product-details">
           <h4>{product.title}</h4>
+          <p>${product.price}</p>
           {/* <p>{product.description}</p> */}
-          <AddButton onClick={() => handleClick(product.title)}>
-            Add to cart
-          </AddButton>
+          <Link to="/">
+            <AddButton onClick={() => handleClick(product)}>
+              Add to cart
+            </AddButton>
+          </Link>
         </div>
       </SingleProduct>
     </StyledLink>

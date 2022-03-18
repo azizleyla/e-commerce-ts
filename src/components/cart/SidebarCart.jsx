@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { SidebarCartBtn } from "../common/Button";
 import { RiCloseLine } from "react-icons/ri";
 import { FaTrashAlt } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteFromCart } from "../../redux/features/products/ProductSlice";
 const SidebarCart = ({ setIsShow, isShow }) => {
   const ref = useRef();
   useEffect(() => {
@@ -22,11 +24,17 @@ const SidebarCart = ({ setIsShow, isShow }) => {
       document.removeEventListener("mousedown", checkIfClickedOutside);
     };
   }, [isShow]);
+  const { cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const handleClick = (id) => {
+    dispatch(deleteFromCart(id));
+  };
+
   return (
     <>
       <SidebarCartContainer ref={ref} className={isShow ? "active" : ""}>
         <div className="cart-header">
-          <span>Your Cart(2)</span>
+          <span>Your Cart ({cartItems.length})</span>
           <button
             className="cart-close-btn"
             onClick={() => setIsShow(false)}
@@ -36,61 +44,32 @@ const SidebarCart = ({ setIsShow, isShow }) => {
         </div>
 
         <p className="empty-cart"></p>
+        {cartItems?.map(({ id, title, image, price, amount }) => (
+          <div className="cart-item" key={id}>
+            <div className="cart-body">
+              <div className="product-img">
+                <img src={image} alt="cart" />
+              </div>
+              <div className="product-detail">
+                <span className="product-title trans-04">{title}</span>
+                <p className="details">
+                  <span className="quantity">Quantity: {amount}</span>
+                </p>
+                <p className="price-info">
+                  Price:
+                  <span className="price">${price}</span>
+                </p>
+              </div>
+              <button
+                className="delete-btn"
+                onClick={() => handleClick(id)}
+              >
+                <FaTrashAlt className="delete-icon" />
+              </button>
+            </div>
+          </div>
+        ))}
 
-        <div className="cart-item">
-          <div className="cart-body">
-            <>
-              <div className="product-img">
-                <img
-                  src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                  alt="cart"
-                />
-              </div>
-              <div className="product-detail">
-                <span className="product-title trans-04">
-                  Mens Casual Premium Slim Fit T-Shirts
-                </span>
-                <p className="details">
-                  <span className="quantity">Quantity: 1</span>
-                </p>
-                <p className="price-info">
-                  Price:
-                  <span className="price"> 150</span>
-                </p>
-              </div>
-              <button className="delete-btn">
-                <FaTrashAlt className="delete-icon" />
-              </button>
-            </>
-          </div>
-        </div>
-        <div className="cart-item">
-          <div className="cart-body">
-            <>
-              <div className="product-img">
-                <img
-                  src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                  alt="cart"
-                />
-              </div>
-              <div className="product-detail">
-                <span className="product-title trans-04">
-                  Mens Casual Premium Slim Fit T-Shirts
-                </span>
-                <p className="details">
-                  <span className="quantity">Quantity: 1</span>
-                </p>
-                <p className="price-info">
-                  Price:
-                  <span className="price"> 150</span>
-                </p>
-              </div>
-              <button className="delete-btn">
-                <FaTrashAlt className="delete-icon" />
-              </button>
-            </>
-          </div>
-        </div>
         <div className="cart-footer">
           <p className="total"></p>
           <div className="cart-btns">
