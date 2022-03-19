@@ -1,9 +1,10 @@
 export interface Product1 {
-  id?: number;
-  title?: string;
-  price?: number;
-  description?: string;
-  image?: string;
+  id: number;
+  title: string | undefined;
+  price: number;
+  description: string | undefined;
+  image: string;
+  amount: number;
 }
 
 export interface OneProduct {

@@ -5,7 +5,7 @@ import { IoIosHeartEmpty } from "react-icons/io";
 import { RiMenu2Line } from "react-icons/ri";
 
 import logo from "../../assets/logo.svg";
-import { navbarLinks } from "../../constant";
+import { navbarLinks } from "../../utils/constant";
 import { Link } from "react-router-dom";
 import SidebarCart from "../cart/SidebarCart";
 
@@ -33,7 +33,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-  });
+  }, []);
   let navbarClasses = ["navbar"];
   if (scrolled) {
     navbarClasses.push("scrolled");

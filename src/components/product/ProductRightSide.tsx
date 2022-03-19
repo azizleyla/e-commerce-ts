@@ -1,19 +1,25 @@
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Product1 } from "../../models/products.model";
+import { addToCart } from "../../redux/features/products/ProductSlice";
 
 const OneProductRightSide: React.FC<{
   selectedProduct: Product1;
-}> = ({ selectedProduct: { title, description, price } }) => {
+}> = ({ selectedProduct }) => {
+  const dispatch = useDispatch();
+
   return (
     <RightSideContainer>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <h1>{selectedProduct.title}</h1>
+      <p>{selectedProduct.description}</p>
       <h3>
         <span>$</span>
-        {price}
+        {selectedProduct.price}
       </h3>
       <ButtonContainer>
-        <ToCart>Add To Cart</ToCart>
+        <ToCart onClick={() => dispatch(addToCart(selectedProduct))}>
+          Add To Cart
+        </ToCart>
         <ToCart>Go To Cart</ToCart>
       </ButtonContainer>
     </RightSideContainer>
