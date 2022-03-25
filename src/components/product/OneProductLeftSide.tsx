@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-import product from "../../images/product1.jpg";
 import { Product1 } from "../../models/products.model";
 
 import React from "react";

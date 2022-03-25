@@ -98,6 +98,7 @@ const NavbarStyled = styled.div`
   position: sticky;
   top: 0;
   z-index: 1;
+  margin-bottom: 30px;
 
   @media (max-width: 1230px) {
     padding: 20px 1.4rem;
