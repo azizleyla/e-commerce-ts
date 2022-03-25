@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { SidebarCartBtn } from "../common/Button";
@@ -7,6 +7,9 @@ import { FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../../redux/features/products/ProductSlice";
 const SidebarCart = ({ setIsShow, isShow }) => {
+  setTimeout(() => {
+    setIsShow(false);
+  }, 8000);
   const ref = useRef();
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -85,6 +88,11 @@ const SidebarCart = ({ setIsShow, isShow }) => {
     </>
   );
 };
+
+setTimeout(() => {
+  console.log("this is the first message");
+}, 5000);
+
 const SidebarCartContainer = styled.div`
   background-color: #fff;
   width: 350px;

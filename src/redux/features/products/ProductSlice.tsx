@@ -43,6 +43,10 @@ const cartSlice = createSlice({
       );
       state.cartItems = newCartItems;
     },
+  //   showTotalPrice: (state, action: PayloadAction<Product1>) => {
+  //     const cartItem = state.cartItems.reduce(accumulator, currentValue) {
+  //       return accumulator + currentValue
+  //     }, 0);
   },
 });
 

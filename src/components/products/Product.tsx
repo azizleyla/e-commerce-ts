@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { AddButton } from "../common/Button";
 import { IoIosHeartEmpty } from "react-icons/io";
@@ -6,6 +6,8 @@ import { Product1 } from "../../models/products.model";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/products/ProductSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Product: React.FC<{
   product: Product1;
@@ -14,7 +16,21 @@ const Product: React.FC<{
   console.log(product);
   const handleClick = (product: Product1) => {
     dispatch(addToCart(product));
+    // toast.success("Added to cart succesfully");
+    toast("Added to cart succesfully", {
+      position: "bottom-left",
+      autoClose: false,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: 1,
+    });
   };
+
+  // useEffect(() => {
+  //   toast.success("Added to cart succesfully");
+  // }, []);
 
   return (
     <StyledLink to={`product/${product.id}`}>
@@ -31,9 +47,12 @@ const Product: React.FC<{
           <p>${product.price}</p>
           {/* <p>{product.description}</p> */}
           <Link to="/">
-            <AddButton onClick={() => handleClick(product)}>
-              Add to cart
-            </AddButton>
+            <div>
+              <ToastContainer />
+              <AddButton onClick={() => handleClick(product)}>
+                Add to cart
+              </AddButton>
+            </div>
           </Link>
         </div>
       </SingleProduct>
