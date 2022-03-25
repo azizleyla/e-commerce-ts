@@ -2,15 +2,48 @@ import React from "react";
 import styled from "styled-components";
 import { useGetProductsQuery } from "../../services/ProductsApi";
 import Product from "./Product";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 
 const Products = () => {
   const { data: products, isLoading } = useGetProductsQuery();
+  const rowSkeletons = 20;
+
+  if (isLoading) {
+    let rows = [];
+    for (let i = 0; i < rowSkeletons; i++) {
+      rows.push(
+        <div className="single-product">
+          <div className="img-container">
+            <Skeleton width={200} height={200} />
+          </div>
+          <div className="skeleton product-details">
+            <h4>
+              <Skeleton count={4} />
+            </h4>
+            <p>
+              <Skeleton height={30} />
+            </p>
+            <div>
+              <Skeleton height={30} width={140} />
+            </div>
+          </div>
+        </div>,
+      );
+    }
+    return (
+      <Wrapper className="container">
+        <SkeletonTheme highlightColor="#ffffff">
+          <div className="products-container">{rows}</div>
+        </SkeletonTheme>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
-      <h1>Products</h1>
       <div className="products-container">
-        {products &&
+        {!isLoading &&
+          products &&
           products.map((product) => (
             <Product key={product.id} product={product} />
           ))}
@@ -20,7 +53,6 @@ const Products = () => {
 };
 
 const Wrapper = styled.div`
-  margin-top: 60px;
   h1 {
     padding: 10px 0;
   }

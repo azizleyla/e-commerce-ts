@@ -6,10 +6,11 @@ import { RiCloseLine } from "react-icons/ri";
 import { FaTrashAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFromCart } from "../../redux/features/products/ProductSlice";
+import { formatPrice } from "../../utils/helpers";
 const SidebarCart = ({ setIsShow, isShow }) => {
-  setTimeout(() => {
-    setIsShow(false);
-  }, 8000);
+  // setTimeout(() => {
+  //   setIsShow(false);
+  // }, 8000);
   const ref = useRef();
   useEffect(() => {
     const checkIfClickedOutside = (e) => {
@@ -28,6 +29,7 @@ const SidebarCart = ({ setIsShow, isShow }) => {
     };
   }, [isShow]);
   const { cartItems } = useSelector((state) => state.cart);
+  const totalPrice = cartItems.reduce((a, c) => a + c.price, 0);
   const dispatch = useDispatch();
   const handleClick = (id) => {
     dispatch(deleteFromCart(id));
@@ -60,7 +62,7 @@ const SidebarCart = ({ setIsShow, isShow }) => {
                 </p>
                 <p className="price-info">
                   Price:
-                  <span className="price">${price}</span>
+                  <span className="price"> {formatPrice(price)}</span>
                 </p>
               </div>
               <button
@@ -74,7 +76,7 @@ const SidebarCart = ({ setIsShow, isShow }) => {
         ))}
 
         <div className="cart-footer">
-          <p className="total"></p>
+          <p className="total">Total: ${totalPrice}</p>
           <div className="cart-btns">
             <Link to="/cart">
               <SidebarCartBtn>Go To Cart</SidebarCartBtn>

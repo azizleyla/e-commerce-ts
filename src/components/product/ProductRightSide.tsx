@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { Product1 } from "../../models/products.model";
 import { addToCart } from "../../redux/features/products/ProductSlice";
+import { formatPrice } from "../../utils/helpers";
 
 const OneProductRightSide: React.FC<{
   selectedProduct: Product1;
@@ -12,10 +13,7 @@ const OneProductRightSide: React.FC<{
     <RightSideContainer>
       <h1>{selectedProduct.title}</h1>
       <p>{selectedProduct.description}</p>
-      <h3>
-        <span>$</span>
-        {selectedProduct.price}
-      </h3>
+      <h3>{formatPrice(selectedProduct.price)}</h3>
       <ButtonContainer>
         <ToCart onClick={() => dispatch(addToCart(selectedProduct))}>
           Add To Cart
