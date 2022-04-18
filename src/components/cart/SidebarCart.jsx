@@ -76,7 +76,7 @@ const SidebarCart = ({ setIsShow, isShow }) => {
         ))}
 
         <div className="cart-footer">
-          <p className="total">Total: ${totalPrice}</p>
+          <p className="total">Total: ${Number(totalPrice).toFixed(2)}</p>
           <div className="cart-btns">
             <Link to="/cart">
               <SidebarCartBtn>Go To Cart</SidebarCartBtn>
