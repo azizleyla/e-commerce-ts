@@ -78,8 +78,8 @@ const SidebarCart = ({ setIsShow, isShow }) => {
         <div className="cart-footer">
           <p className="total">Total: ${totalPrice}</p>
           <div className="cart-btns">
-            <Link to="/cart">
-              <SidebarCartBtn>Go To Cart</SidebarCartBtn>
+            <Link to="/bag">
+              <SidebarCartBtn>Go To Bag</SidebarCartBtn>
             </Link>
             <Link to="/cart">
               <SidebarCartBtn title="checkout">Checkout</SidebarCartBtn>

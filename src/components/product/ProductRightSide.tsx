@@ -1,26 +1,41 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Product1 } from "../../models/products.model";
 import { addToCart } from "../../redux/features/products/ProductSlice";
 import { formatPrice } from "../../utils/helpers";
+import SidebarCart from "../cart/SidebarCart";
 
 const OneProductRightSide: React.FC<{
   selectedProduct: Product1;
 }> = ({ selectedProduct }) => {
   const dispatch = useDispatch();
 
+  const [isShow, setIsShow] = useState(false);
+
+  // onClick={() => setIsShow(true)}
+
+  const addButton = () => {
+    dispatch(addToCart(selectedProduct));
+    setIsShow(true);
+  };
+
   return (
-    <RightSideContainer>
-      <h1>{selectedProduct.title}</h1>
-      <p>{selectedProduct.description}</p>
-      <h3>{formatPrice(selectedProduct.price)}</h3>
-      <ButtonContainer>
-        <ToCart onClick={() => dispatch(addToCart(selectedProduct))}>
-          Add To Cart
-        </ToCart>
-        <ToCart>Go To Cart</ToCart>
-      </ButtonContainer>
-    </RightSideContainer>
+    <>
+      <RightSideContainer>
+        <h1>{selectedProduct.title}</h1>
+        <p>{selectedProduct.description}</p>
+        <h3>{formatPrice(selectedProduct.price)}</h3>
+        <ButtonContainer>
+          <ToCart onClick={addButton}>Add To Cart</ToCart>
+          <Link to="/bag">
+            <ToCart>Go To Cart</ToCart>
+          </Link>
+        </ButtonContainer>
+      </RightSideContainer>
+      <SidebarCart isShow={isShow} setIsShow={setIsShow} />
+    </>
   );
 };
 
