@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useGetProductsQuery } from "../../services/ProductsApi";
 import Product from "./Product";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import { Product1 } from "../../models/products.model";
 
-const Products = () => {
+const Products = ({productItems}:any) => {
   const { data: products, isLoading } = useGetProductsQuery();
   const rowSkeletons = 20;
 
+
+
+  
   if (isLoading) {
     let rows = [];
     for (let i = 0; i < rowSkeletons; i++) {
@@ -44,7 +48,7 @@ const Products = () => {
       <div className="products-container">
         {!isLoading &&
           products &&
-          products.map((product) => (
+          productItems?.map((product:any) => (
             <Product key={product.id} product={product} />
           ))}
       </div>
