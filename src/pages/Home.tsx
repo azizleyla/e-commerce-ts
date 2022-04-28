@@ -10,7 +10,8 @@ import { useGetProductsQuery } from "../services/ProductsApi";
 const Home = () => {
   const { data: products, isLoading } = useGetProductsQuery();
 
-  const [productItems, setProductItems] = useState<Product1[]>();
+  const [productItems, setProductItems] = useState<Product1[]>(); 
+  
   useEffect(() => {
     setProductItems(products);
   }, [isLoading]);
@@ -20,8 +21,8 @@ const Home = () => {
       <ScroolToTop />
       <Container>
         <h1>Products</h1>
-        <FilterButtons productItems={productItems} />
-        <Products />
+        <FilterButtons productItems={productItems} setProductItems={setProductItems} />
+        <Products productItems={productItems} />
       </Container>
     </Layout>
   );

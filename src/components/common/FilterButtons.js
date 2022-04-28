@@ -1,23 +1,39 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useGetProductsQuery } from "../../services/ProductsApi";
 
-const FilterButtons = ({ productItems }) => {
+const FilterButtons = ({ productItems, setProductItems }) => {
+  const { data: products, isLoading } = useGetProductsQuery();
   const [activeBtn, setActiveBtn] = useState("All");
+  console.log(productItems);
   const categories = [
     "All",
-    ...new Set(productItems?.map((item) => item.category)),
+    ...new Set(products?.map((item) => item.category)),
   ];
 
+  const handleClick = (category) => {
+    setActiveBtn(category);
+    if (category !== "All") {
+      const filteredProducts = products.filter(
+        (item) => item.category === category,
+      );
+      setProductItems(filteredProducts);
+    } else {
+      setProductItems(products);
+    }
+  };
   return (
     <Wrapper>
       <div className="buttons">
-        {categories.map((item, index) => (
+        {categories.map((category, index) => (
           <button
-            onClick={() => setActiveBtn(item)}
-            className={activeBtn === item ? "btn active" : "btn"}
+            onClick={() => {
+              handleClick(category);
+            }}
+            className={activeBtn === category ? "btn active" : "btn"}
             key={index}
           >
-            {item}
+            {category}
           </button>
         ))}
       </div>
