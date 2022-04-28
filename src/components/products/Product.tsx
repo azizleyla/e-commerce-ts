@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { AddButton } from "../common/Button";
 import { IoIosHeartEmpty } from "react-icons/io";
@@ -9,11 +9,14 @@ import { addToCart } from "../../redux/features/products/ProductSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { formatPrice } from "../../utils/helpers";
+import SidebarCart from "../cart/SidebarCart";
 
 const Product: React.FC<{
   product: Product1;
 }> = ({ product }) => {
   const dispatch = useDispatch();
+
+  const [isShow, setIsShow] = useState(false);
 
   const handleClick = (product: Product1) => {
     dispatch(addToCart(product));
@@ -24,33 +27,42 @@ const Product: React.FC<{
   //   toast.success("Added to cart succesfully");
   // }, []);
 
-  return (
-    <StyledLink to={`product/${product.id}`}>
-      <Wrapper>
-        <div className="single-product">
-          <div className="like-icon-container">
-            <IoIosHeartEmpty />
-          </div>
+  const addButton = () => {
+    handleClick(product);
+    setIsShow(true);
+  };
 
-          <div className="img-container">
-            <img src={product.image} alt="" />
+  return (
+    <>
+      <StyledLink to={`product/${product.id}`}>
+        <Wrapper>
+          <div className="single-product">
+            <div className="like-icon-container">
+              <IoIosHeartEmpty />
+            </div>
+
+            <div className="img-container">
+              <img src={product.image} alt="" />
+            </div>
+            <div className="product-details">
+              <h4>{product.title}</h4>
+              <p>{formatPrice(product.price)}</p>
+              {/* <p>{product.description}</p> */}
+              <Link to="/">
+                <div>
+                  <ToastContainer
+                    position="bottom-left"
+                    autoClose={1000}
+                  />
+                  <AddButton onClick={addButton}>Add to cart</AddButton>
+                </div>
+              </Link>
+            </div>
           </div>
-          <div className="product-details">
-            <h4>{product.title}</h4>
-            <p>{formatPrice(product.price)}</p>
-            {/* <p>{product.description}</p> */}
-            <Link to="/">
-              <div>
-                <ToastContainer autoClose={2000} />
-                <AddButton onClick={() => handleClick(product)}>
-                  Add to cart
-                </AddButton>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </Wrapper>
-    </StyledLink>
+        </Wrapper>
+      </StyledLink>
+      <SidebarCart isShow={isShow} setIsShow={setIsShow} />
+    </>
   );
 };
 
